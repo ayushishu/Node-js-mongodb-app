@@ -1,0 +1,11 @@
+FROM node:alpine
+
+RUN apk update && apk add $PACKAGES
+
+WORKDIR /myapp/
+COPY  package*.json ./
+RUN npm install
+COPY . .
+EXPOSE $PORT
+
+ENTRYPOINT  ["npm", "start"]

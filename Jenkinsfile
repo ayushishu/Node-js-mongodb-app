@@ -1,3 +1,4 @@
+//jenkines is running on window OS
 pipeline {
   agent any
   stages 
@@ -8,10 +9,16 @@ pipeline {
         bat 'docker-compose down '
         }
     }       
-    stage('Build and deploy update image')//for local test 
+    stage('Build updated image')//for local test 
     {
           steps {
             bat 'docker-compose build --no-cache '
+          }
+    }
+    stage('Localy Deploy the new build')
+    {
+          steps {
+            bat 'docker-compose up'
           }
     }
     stage('Push node-app image to docker hub'){
@@ -20,9 +27,18 @@ pipeline {
             bat 'docker push ayushishu/nodeapp'
           }
     }
+//make sure that you are allready login to azur using '$ az login'
+    stage('terraform init'){
+      
+          steps {
+            bat 'terraform init'
+          }
+    }
+    stage('terraform apply') {     
+          steps {
+            bat 'terraform apply'
+          }
+    }
 
-
-    
-  
   } 
 }

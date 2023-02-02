@@ -11,7 +11,7 @@ pipeline {
     stage('Build and deploy update image')//for local test 
     {
           steps {
-            bat 'docker-compose build --no-cache -d '
+            bat 'docker-compose build --no-cache '
           }
     }
     stage('Push node-app image to docker hub'){

@@ -4,7 +4,7 @@ services:
 
   node:
     container_name: nodeapp
-    image: nodeapp
+    image: ayushishu/nodeapp
     build: /Node-mongo-app-scr/.
     ports:
       - "3000:3000"

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-mongo-app
+spec:
+  selector:
+    matchLabels:
+      app: node-mongo-app
+  template:
+    metadata:
+      labels:
+        app: node-mongo-app
+    spec:
+      containers:
+      - name: node
+        image: ayushishu/nodeapp:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+      - name: node-mongo-app
+        image: mongo:latest
+        resources:
+          limits:
+            memory: "350Mi"
+            cpu: "500m" 
+  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-mongo-app
+spec:
+  selector:
+    app: node-mongo-app
+  ports:
+  - port: 3000
+    targetPort: 3000
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-mongo-app
+spec:
+  selector:
+    app: node-mongo-app
+  ports:
+  - port: 3000
+    targetPort: 3004

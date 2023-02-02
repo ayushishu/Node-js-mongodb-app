@@ -18,7 +18,7 @@ pipeline {
     stage('Localy Deploy the new build')
     {
           steps {
-            bat 'docker-compose up'
+            bat 'docker-compose up -d'
           }
     }
     stage('Push node-app image to docker hub'){
